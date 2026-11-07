@@ -1495,13 +1495,26 @@ function setHover(f, ev) {
     tip.style.left = ev.clientX + "px"; tip.style.top = ev.clientY + "px";
   } else tip.style.opacity = 0;
 }
+/* pincement à deux doigts : zoom fluide sur la planète */
+const ptrs = new Map(); let pinch = null;
+const pdist = () => { const [a, b] = [...ptrs.values()]; return Math.hypot(a.x - b.x, a.y - b.y) || 1; };
 canvas.addEventListener("pointerdown", e => {
   canvas.setPointerCapture(e.pointerId);
+  ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (ptrs.size === 2) {
+    pinch = { d: pdist(), z: S.zoom };
+    down = null; S.drag = true; S.manip = true; S.tgt = null; S.vel = null; S.anim = null; S.samples = [];
+    canvas.classList.remove("drag"); setHover(null);
+    return;
+  }
+  if (pinch) return;
   down = { x: e.clientX, y: e.clientY, rot: S.rot.slice(), moved: false };
   S.anim = null; S.vel = null; S.tgt = null;
   S.samples = [{ t: performance.now(), x: e.clientX, y: e.clientY }];
 });
 canvas.addEventListener("pointermove", e => {
+  if (ptrs.has(e.pointerId)) ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (pinch) { if (ptrs.size >= 2) setZoom(pinch.z * pdist() / pinch.d); return; }
   if (down) {
     const dx = e.clientX - down.x, dy = e.clientY - down.y;
     if (!down.moved && Math.hypot(dx, dy) > 5) { down.moved = true; S.drag = true; S.manip = true; canvas.classList.add("drag"); setHover(null); }
@@ -1521,6 +1534,8 @@ canvas.addEventListener("pointermove", e => {
   pending = requestAnimationFrame(() => { pending = null; setHover(pick(ev.clientX, ev.clientY), ev); });
 });
 canvas.addEventListener("pointerup", e => {
+  ptrs.delete(e.pointerId);
+  if (pinch) { if (ptrs.size === 0) { pinch = null; S.drag = false; S.idleAt = performance.now() + 3500; } down = null; S.samples = []; return; }
   const wasDrag = down && down.moved;
   down = null; S.drag = false; canvas.classList.remove("drag");
   S.idleAt = performance.now() + 3500;
@@ -1537,7 +1552,7 @@ canvas.addEventListener("pointerup", e => {
   S.samples = [];
   if (!wasDrag) { const hit = pick(e.clientX, e.clientY); select(hit && hit === S.sel ? null : hit); }
 });
-canvas.addEventListener("pointercancel", () => { down = null; S.drag = false; canvas.classList.remove("drag"); });
+canvas.addEventListener("pointercancel", e => { ptrs.delete(e.pointerId); if (!ptrs.size) pinch = null; down = null; S.drag = false; canvas.classList.remove("drag"); });
 canvas.addEventListener("pointerleave", () => { if (!down) setHover(null); });
 canvas.addEventListener("wheel", e => { e.preventDefault(); S.manip = true; setZoom(S.zoom * Math.exp(-e.deltaY * 0.0015)); }, { passive: false });
 function setZoom(z) { S.manip = true; S.zoom = clamp(z, 0.8, 12); S.anim = null; S.dirty = true; }
