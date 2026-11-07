@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>L'éco partout</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -411,6 +416,9 @@ body.mhidden .hint { left: 78px; }
   font-size: 14px; font-weight: 600; color: var(--ink); padding: 6px 0; transition: opacity .2s;
 }
 #reader .back:hover { opacity: .6; }
+.wordmark { background: none; border: 0; padding: 0; margin: 0; color: inherit; cursor: pointer; text-align: left; transition: opacity .2s, transform .2s; }
+.wordmark:hover { opacity: .8; transform: translateX(-2px); }
+.wordmark:focus-visible { outline: 2px solid var(--accent, #f0b44c); outline-offset: 4px; border-radius: 6px; }
 .wordmark { font-family: var(--font-title); font-style: italic; font-weight: 800; font-size: 26px; letter-spacing: -0.03em; }
 .rnav { display: flex; align-items: center; gap: 22px; }
 .metarow { display: flex; align-items: center; gap: 22px; margin: 28px 0 40px; }
@@ -524,6 +532,76 @@ body.mhidden .hint { left: 78px; }
 @media (prefers-reduced-motion: reduce) {
   #panel, #reader, #tribune, #menu, #tip, .hint, .rub .chev { transition: none !important; }
 }
+
+/* ====== MOBILE : tailles agrandies pour un téléphone (n'affecte pas l'ordinateur) ====== */
+@media (max-width: 820px) {
+  header.brand { top: calc(env(safe-area-inset-top, 0px) + 12px); max-width: 100%; padding: 6px 12px 8px; }
+  .brand h1, .planet { font-size: 44px; }
+  .menubtn { top: calc(env(safe-area-inset-top, 0px) + 92px); left: 16px; height: 54px; padding: 0 26px; font-size: 19px; box-shadow: 0 6px 22px rgba(0,0,0,.35); }
+  .hint { bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); font-size: 12.5px; gap: 14px; }
+  .zoom { gap: 10px; }
+  .zoom button { width: 54px; height: 54px; font-size: 26px; border-radius: 12px; }
+  #welcome { width: min(calc(100% - 28px), 520px); bottom: calc(env(safe-area-inset-bottom, 0px) + 86px); padding: 20px 20px 20px; }
+  #welcome .wt { font-size: 21px; margin-bottom: 8px; }
+  #welcome ol { font-size: 16px; line-height: 1.45; gap: 7px; margin-bottom: 14px; }
+  #welcome #wgo { height: 50px; padding: 0 26px; font-size: 17px; }
+  #welcome #wclose { width: 46px; height: 46px; font-size: 28px; top: 8px; right: 8px; }
+
+  #menu { width: min(92vw, 390px); }
+  body.mhidden #menu.open { transform: none; visibility: visible; transition: transform .35s cubic-bezier(.2,.8,.2,1), visibility 0s; }
+  .mhide { display: none; }
+  .mclose { width: 52px; height: 52px; font-size: 32px; }
+  .mbtn { font-size: 25px; padding: 13px 0; }
+  .mbtn .n { font-size: 15px; }
+  .wk { font-size: 20px; padding: 13px 0; }
+  .wk .n { font-size: 15px; }
+  .cty { padding: 12px 0 13px; }
+  .cty .cn { font-size: 25px; }
+  .cty .ct { font-size: 15.5px; line-height: 1.4; }
+  .msearch input { height: 54px; font-size: 17px; padding: 0 18px; }
+  .chip { font-size: 16px; padding: 9px 15px; }
+
+  #panel { max-height: 72vh; padding: 24px 20px calc(env(safe-area-inset-bottom, 0px) + 26px); }
+  #panel h2 { font-size: 40px; }
+  .eyebrow { font-size: 13px; }
+  #panel .status { font-size: 17px; max-width: none; }
+  .art .acov { height: 170px; }
+  .art .w { font-size: 12.5px; }
+  .art .t { font-size: 20px; line-height: 1.28; }
+  .art .go { width: 44px; height: 44px; }
+  .pnc .pl { font-size: 12.5px; }
+  .pnc .pc { font-size: 15px; }
+  .pnc .pt { font-size: 18px; }
+  #gltip { font-size: 16px; max-width: min(88vw, 360px); line-height: 1.5; }
+  .gl { border-bottom-width: 2px; }
+
+  #reader { padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); overflow-x: hidden; }
+  #reader article { margin-top: 32px; }
+  .wordmark { font-size: 28px; }
+  #reader .back, #tribune .back { font-size: 17px; padding: 10px 0; min-height: 48px; }
+  .rnav { flex-wrap: wrap; justify-content: flex-start; gap: 10px; }
+  .favbtn { font-size: 16px; padding: 12px 18px; min-height: 48px; }
+  #reader h2 { font-size: clamp(32px, 9.4vw, 44px); line-height: 1.08; overflow-wrap: anywhere; }
+  .metarow { margin: 20px 0 26px; }
+  .mlabel { font-size: 13.5px; white-space: normal; overflow-wrap: anywhere; line-height: 1.5; }
+  .metarow > * { min-width: 0; max-width: 100%; }
+  .mright { flex-wrap: wrap; gap: 2px 10px; }
+  .thin { font-size: 24px; }
+  .bi { font-size: 30px; }
+  #reader .chapo { font-size: 21px; }
+  #reader .body p { font-size: 19.5px; line-height: 1.7; }
+  #reader .body p.lede { font-size: 22px; line-height: 1.55; }
+  #reader .note, .sources a { font-size: 17px; }
+  .media figcaption, .legende { font-size: 15.5px; line-height: 1.5; }
+  #reader .body .pcard .ptxt { font-size: 18px; }
+  #reader .body .pcard .prole { font-size: 16.5px; }
+
+  #tribune { padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); overflow-x: hidden; }
+  .thead { margin-top: 28px; }
+  .thead h2, .thead h2 .thin { font-size: clamp(46px, 14vw, 64px); }
+  .thead h2 .bi { font-size: clamp(48px, 14.5vw, 66px); }
+  .thead p { font-size: 19.5px; line-height: 1.65; }
+}
 </style>
 
 <div id="stage">
@@ -560,7 +638,6 @@ body.mhidden .hint { left: 78px; }
   <button class="mclose" id="mclose" type="button" aria-label="Fermer le menu">×</button>
   <button class="mhide" id="mhide" type="button" aria-label="Masquer le menu" title="Masquer le menu"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   <div class="mnav">
-    <button class="mbtn" id="rubAbout" type="button"><span>Qu'est-ce que L'éco partout ?</span></button>
     <div class="msearch">
       <input id="q" type="search" placeholder="Rechercher un pays, un mot…" aria-label="Rechercher un article" autocomplete="off" spellcheck="false">
     </div>
@@ -607,13 +684,13 @@ body.mhidden .hint { left: 78px; }
 
 <section id="tribune" aria-hidden="true" aria-label="La Tribune">
   <div class="rbar">
-    <div class="wordmark">L'éco partout</div>
+    <button class="wordmark" type="button" title="Retour au globe" aria-label="Retour au globe">L'éco partout</button>
     <div class="rnav"><button class="back" id="tback" type="button">← Retour au globe</button></div>
   </div>
   <div class="thead">
     <h2><span class="thin">La</span> <span class="bi">Tribune</span></h2>
     <div class="trow"><span class="msep" aria-hidden="true"></span><span class="mlabel" id="tstate"></span></div>
-    <p>La Tribune est l’espace où des proches de L’éco partout prennent la plume. Chaque article est signé par son auteur et donne son regard sur l’actualité économique. Survolez la bande pour l’arrêter, cliquez sur une vignette pour lire l’article.</p>
+    <p>La Tribune est le lieu où certains de mes proches viennent présenter un sujet d’actualité, économique ou plus général, qui les a interpellés. En plus de présenter le sujet, ils en profitent pour donner leur opinion. Des articles paraîtront le plus régulièrement possible.</p>
   </div>
   <div class="tgwrap" id="tgwrap"></div>
   <ul class="sronly" id="tlist" aria-label="Articles de La Tribune"></ul>
@@ -626,7 +703,7 @@ body.mhidden .hint { left: 78px; }
 <section id="reader" aria-hidden="true" aria-label="Article">
   <div id="rprog" aria-hidden="true"></div>
   <div class="rbar">
-    <div class="wordmark">L'éco partout</div>
+    <button class="wordmark" type="button" title="Retour au globe" aria-label="Retour au globe">L'éco partout</button>
     <div class="rnav">
       <button class="back" id="rback" type="button">← Retour au globe</button>
       <button class="favbtn" id="rshare" type="button" hidden>Copier le lien</button>
@@ -1651,10 +1728,18 @@ $("rubInfo").onclick = () => { closeDrawer(); if (S.sel) select(null); openReade
 function closeReader(silent) {
   reader.classList.remove("open"); reader.setAttribute("aria-hidden", "true");
   if (!silent) setHash(tribune.classList.contains("open") ? "#/tribune" : (S.sel && S.sel.code ? "#/pays/" + S.sel.code : ""));
-  $("rubAbout").classList.remove("on");
   if (!silent && lastFocus && lastFocus.focus) lastFocus.focus();
 }
 $("rback").onclick = () => closeReader();
+function goGlobe() {
+  if ($("lb").classList.contains("open")) closeLb();
+  closeDrawer();
+  if (reader.classList.contains("open")) closeReader(true);
+  if (tribune.classList.contains("open")) closeTribune();
+  if (S.sel) select(null);
+  setHash("");
+}
+document.querySelectorAll(".wordmark").forEach(b => { b.onclick = goGlobe; });
 $("pclose").onclick = () => select(null);
 
 /* ============ MENU DE GAUCHE ============ */
@@ -1685,12 +1770,6 @@ function initialFocus() {
 $("rubWeeks").onclick = () => {
   const b = $("rubWeeks"), ex = b.getAttribute("aria-expanded") === "true";
   b.setAttribute("aria-expanded", !ex); weeksEl.hidden = ex;
-};
-$("rubAbout").onclick = () => {
-  closeDrawer();
-  if (S.sel) select(null);
-  openReader(ABOUT, "À propos");
-  $("rubAbout").classList.add("on");
 };
 function setMenuHidden(h) { document.body.classList.toggle("mhidden", h); $("menuBtn").setAttribute("aria-expanded", String(!h)); S.dirty = true; }
 $("mhide").onclick = () => setMenuHidden(true);
@@ -1814,19 +1893,10 @@ $("q").addEventListener("keydown", e => { if (e.key === "Escape" && $("q").value
 
 /* --- glossaire : le premier emploi d'un terme technique a une définition au survol --- */
 const GLOSS = [
-  ["Arunachal Pradesh", "État indien du nord-est, à la frontière avec la Chine. Pékin le revendique et le considère comme une partie du Tibet."],
-  ["Medog", "Projet chinois de gigantesque barrage hydroélectrique, au Tibet, sur le Yarlung Tsangpo, le fleuve qui devient le Brahmapoutre en Inde."],
-  ["hydroélectrique", "Qui produit de l’électricité grâce à la force de l’eau retenue ou canalisée par un barrage."],
-  ["SIPRI", "Institut international de recherche sur la paix de Stockholm : il publie des données de référence sur les dépenses militaires et le commerce des armes."],
-  ["opération Sindoor", "Opération militaire lancée par l’Inde contre le Pakistan en mai 2025."],
-  ["cachemiri", "Du Cachemire, région de l’Himalaya que se disputent l’Inde, le Pakistan et, pour une petite partie, la Chine."],
-  ["sino-pakistanais", "Entre la Chine (« sino- ») et le Pakistan."],
-  ["asymétrie militaire", "Écart important de forces entre deux adversaires, par exemple en nombre de soldats, en moyens technologiques ou en budget."],
-  ["armement majeur", "Gros équipements militaires comme les avions de combat, les navires, les chars ou les systèmes de missiles, par opposition aux armes légères."],
-  ["New Delhi", "Capitale de l’Inde. Le nom désigne ici, par extension, le gouvernement indien."],
-  ["Pékin", "Capitale de la Chine. Le nom désigne ici, par extension, le gouvernement chinois."],
-  ["sous-systèmes?", "Ensembles de pièces qui assurent une fonction précise à l’intérieur d’une machine plus grande (commandes électriques, par exemple)."],
-  ["systèmes? de propulsion", "Ensembles qui font avancer un avion, un navire ou un missile (moteurs, hélices, carburant)."],
+  ["exportations d[’']armes", "Ventes d’armes d’un pays à des clients étrangers."],
+  ["industrie locale", "Entreprises installées dans le pays qui fabriquent elles-mêmes les produits, ici les équipements militaires, au lieu de les acheter à l’étranger."],
+  ["importateur d[’']armement majeur", "Pays qui achète à l’étranger de gros équipements militaires (avions de combat, navires, missiles…)."],
+  ["production de masse", "Fabrication d’un très grand nombre d’exemplaires identiques, ce qui fait baisser le coût de chacun."],
   ["crise des dettes souveraines", "Période, à partir de 2009-2010, où plusieurs États de la zone euro (dont la Grèce) ont eu du mal à emprunter, car les investisseurs doutaient de leur capacité à rembourser."],
   ["excédent primaire", "Solde du budget de l’État avant le paiement des intérêts de la dette : il est excédentaire quand l’État reçoit plus qu’il ne dépense, hors charge de la dette."],
   ["PIB", "Produit intérieur brut : la valeur de tout ce qu’un pays produit en un an."],
@@ -2142,3 +2212,5 @@ renderMenu(); renderFavs(); initialFocus(); resize(); readColors(); if (location
 S.idleAt = performance.now() + 800;
 requestAnimationFrame(frame);
 </script>
+
+</html>
